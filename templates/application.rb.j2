@@ -1,0 +1,179 @@
+roles ['geo_primary_role']
+external_url 'https://${app-1-public}'
+pages_external_url 'https://${app-1-public}'
+registry_external_url 'https://${app-1-public}'
+gitlab_rails['initial_root_password'] = '{{ gitlab_initial_root_password }}'
+gitlab_rails['geo_node_name'] = 'gitlab-${region}'
+gitlab_rails['db_host'] = '${db_ip}'
+gitlab_rails['db_database'] = '${ db_name }'
+gitlab_rails['db_username'] = '${ db_user }'
+gitlab_rails['db_password'] = '${ db_password }'
+gitlab_rails['db_sslmode'] = 'require'
+gitlab_rails['db_adapter'] = 'postgresql'
+gitlab_rails['redis_host'] = '${ redis_ip }'
+gitlab_rails['redis_ssl'] = true
+gitlab_rails['auto_migrate'] = true
+gitlab_pages['enable'] = true
+gitlab_pages['external_http'] = [':10080']
+gitlab_pages['external_https'] = [':10443']
+gitlab_pages['inplace_chroot'] = true
+pages_nginx['enable'] = false
+postgresql['enable'] = false
+gitaly['enable'] = false
+redis['enable'] = false
+monitoring_role['enable'] = false
+prometheus['enable'] = false
+alertmanager['enable'] = false
+registry['storage'] = {
+  's3' => {
+    'bucket' => '${ bucket-app }',
+    'region' => '${ region }',
+  }
+}
+registry['health_storagedriver_enabled'] = false
+registry['storage_delete_enabled'] = true
+registry['debug_addr'] = '0.0.0.0:5001'
+grafana['enable'] = true
+grafana['disable_login_form'] = false
+grafana['admin_password'] = '{{ grafana_admin_password }}'
+grafana['datasources'] = [
+  {
+    'name' => 'GitLab Omnibus',
+    'type' => 'prometheus',
+    'access' => 'proxy',
+    'url' => 'http://${ mon-1-public}:9090'
+  }
+]
+letsencrypt['enable'] = true
+nginx['redirect_http_to_https'] = true
+registry_nginx['redirect_http_to_https'] = true
+nginx['server_names_hash_bucket_size'] = 128
+node_exporter['listen_address'] = '0.0.0.0:9100'
+gitlab_workhorse['prometheus_listen_addr'] = '0.0.0.0:9229'
+gitlab_exporter['listen_address'] = '0.0.0.0'
+sidekiq['listen_address'] = '0.0.0.0'
+sidekiq['metrics_enabled'] = true
+puma['listen'] = '0.0.0.0'
+puma['exporter_enabled'] = true
+puma['exporter_address'] = '0.0.0.0'
+consul['enable'] = false
+postgres_exporter['enable'] = true
+postgres_exporter['host'] = '${ db_ip }'
+postgres_exporter['sslmode'] = 'require'
+postgres_exporter['listen_address'] = '0.0.0.0:9187'
+redis_exporter['enable'] = true
+redis_exporter['listen_address'] = '0.0.0.0:9121'
+redis_exporter['flags'] = {
+  'redis.addr' => 'rediss://${redis_ip}',
+}
+
+gitlab_rails['monitoring_whitelist'] = [
+  '0.0.0.0/0',
+  '127.0.0.0/8'
+]
+nginx['status']['options']['allow'] = [
+  '0.0.0.0/0',
+  '127.0.0.0/8'
+]
+gitlab_rails['prometheus_address'] = '${ mon-1-public}:9090'
+
+git_data_dirs({
+  'default' => {
+    "gitaly_address" => "tcp://${praefect-1-private}:2305",
+    "gitaly_token" => '{{ praefect_external_token }}'
+  }
+})
+
+gitlab_rails['backup_upload_remote_directory'] = '${ bucket-backup }'
+gitlab_rails['backup_upload_connection'] = {
+  'provider' => 'AWS',
+  'region' => '${region}',
+  'use_iam_profile' => true
+}
+
+gitlab_rails['artifacts_enabled'] = true
+gitlab_rails['artifacts_object_store_enabled'] = true
+gitlab_rails['artifacts_object_store_direct_upload'] = true
+gitlab_rails['artifacts_object_store_remote_directory'] = '${bucket-artifacts}'
+gitlab_rails['artifacts_object_store_connection'] = {
+  'provider' => 'AWS',
+  'region' => '${region }',
+  'use_iam_profile' => true
+}
+
+gitlab_rails['uploads_object_store_enabled'] = true
+gitlab_rails['uploads_object_store_direct_upload'] = true
+gitlab_rails['uploads_object_store_remote_directory'] = '${bucket-uploads}'
+gitlab_rails['uploads_object_store_connection'] = {
+  'provider' => 'AWS',
+  'region' => '${region }',
+  'use_iam_profile' => true
+}
+
+gitlab_rails['packages_enabled'] = true
+gitlab_rails['packages_object_store_enabled'] = true
+gitlab_rails['packages_object_store_remote_directory'] = '${ bucket-registry}'
+gitlab_rails['packages_object_store_direct_upload'] = true
+gitlab_rails['packages_object_store_connection'] = {
+  'provider' => 'AWS',
+  'region' => '${region }',
+  'use_iam_profile' => true
+}
+
+gitlab_rails['external_diffs_enabled'] = true
+gitlab_rails['external_diffs_object_store_enabled'] = true
+gitlab_rails['external_diffs_object_store_direct_upload'] = true
+gitlab_rails['external_diffs_object_store_remote_directory'] = '${bucket-diffs}'
+gitlab_rails['external_diffs_object_store_connection'] = {
+  'provider' => 'AWS',
+  'region' => '${region}',
+  'use_iam_profile' => true
+}
+
+gitlab_rails['lfs_enabled'] = true
+gitlab_rails['lfs_object_store_enabled'] = true
+gitlab_rails['lfs_object_store_direct_upload'] = true
+gitlab_rails['lfs_object_store_remote_directory'] = '${bucket-lfs}'
+gitlab_rails['lfs_object_store_connection'] = {
+  'provider' => 'AWS',
+  'region' => '${region }',
+  'use_iam_profile' => true
+}
+
+gitlab_rails['rack_attack_git_basic_auth'] = {
+  'enabled' => true,
+  'ip_whitelist' => ["127.0.0.1", "0.0.0.0"],
+  'maxretry' => 20,
+  'findtime' => 60,
+  'bantime' => 3600
+}
+gitlab_rails['gitlab_default_can_create_group'] = false
+gitlab_rails['gitlab_username_changing_enabled'] = true
+gitlab_rails['gitlab_default_projects_features_wiki'] = false
+gitlab_rails['gitlab_email_from'] = 'avishnia@redhat.com'
+
+gitlab_rails['omniauth_enabled'] = false
+gitlab_rails['omniauth_allow_single_sign_on'] = false
+gitlab_rails['omniauth_block_auto_created_users'] = false
+gitlab_rails['omniauth_auto_link_saml_user'] = false
+#gitlab_rails['omniauth_providers'] = [
+#  {
+#    "name" => "bitbucket",
+#    "app_id" => "",
+#    "app_secret" => "",
+#    "url" => "https://bitbucket.org/"
+#  },
+#  {
+#    name: 'saml',
+#    groups_attribute: "Groups",
+#    # external_groups: ["Contractors", "Freelancers"],
+#    args: {
+#      assertion_consumer_service_url: 'https://{{ external_hostname[ansible_facts.ec2_placement_region] }}/users/auth/saml/callback',
+#      idp_cert_fingerprint: '',
+#      idp_sso_target_url: 'https://veevasys.okta.com/app/veevasystems_gitlabprod_1/exk1bjwccg0ii4kst0h8/sso/saml',
+#      issuer: 'https://{{ external_hostname[ansible_facts.ec2_placement_region] }}',
+#      name_identifier_format: 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient'
+#    },
+#    label: 'Okta'
+#  }
+#]

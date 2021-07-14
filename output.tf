@@ -14,9 +14,6 @@ output "app-1-eip" {
   value = "${aws_eip.app-1.public_dns}"
 }
 
-output "pg-1-ip" {
-  value = "${aws_instance.pg-1.private_ip}"
-}
 
 output "mon-1-ip" {
   value = "${aws_instance.mon-1.private_ip}"

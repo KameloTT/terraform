@@ -1,0 +1,8 @@
+[app]
+ec2-52-54-114-53.compute-1.amazonaws.com
+[gitaly]
+10.0.53.228
+[praefect]
+10.0.49.60
+[mon]
+10.0.34.36

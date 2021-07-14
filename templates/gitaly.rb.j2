@@ -1,0 +1,29 @@
+postgresql['enable'] = false
+redis['enable'] = false
+nginx['enable'] = false
+puma['enable'] = false
+sidekiq['enable'] = false
+gitlab_workhorse['enable'] = false
+grafana['enable'] = false
+gitlab_exporter['enable'] = false
+prometheus['enable'] = false
+alertmanager['enable'] = false
+consul['enable'] = false
+
+gitlab_rails['auto_migrate'] = false
+gitlab_rails['internal_api_url'] = 'https://${app-1-public}'
+
+praefect['enable'] = false
+gitaly['enable'] = true
+gitaly['listen_addr'] = '0.0.0.0:8075'
+gitaly['prometheus_listen_addr'] = '{{ ansible_default_ipv4.address }}:9236'
+gitaly['auth_token'] = '{{ praefect_internal_token }}'
+node_exporter['listen_address'] = '0.0.0.0:9100'
+git_data_dirs({
+  '${ gitaly-1 }' => {
+    'path' => '/gitaly'
+  },
+  '${ gitaly-2 }' => {
+    'path' => '/gitaly'
+  },
+})

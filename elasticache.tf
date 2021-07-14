@@ -13,6 +13,7 @@ data "aws_caller_identity" "current" {}
 resource "aws_elasticache_subnet_group" "default" {
   name       = "gitlab"
   subnet_ids = [aws_subnet.subnet-mgmt-1a.id,aws_subnet.subnet-mgmt-1b.id]
+  tags = {}
 }
 
 resource "aws_elasticache_replication_group" "gitlab" {
@@ -30,4 +31,5 @@ resource "aws_elasticache_replication_group" "gitlab" {
   security_group_ids            = [aws_security_group.ingress-all.id]
   at_rest_encryption_enabled    = true
   transit_encryption_enabled    = true
+  tags = {}
 }
