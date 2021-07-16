@@ -10,12 +10,27 @@ source = "./modules/networking"
 
 module "ec2" {
 source = "./modules/ec2"
-  ami                     = "ami-059f1cc52e6c85908"
-  vpc_security_group_ids  = ["${module.networking.security_group.id}"]
-  gitaly-instance-type    = "t3.medium"
-  gitaly-private-subnet   = "${module.networking.private_subnet[0].id}"
-  praefect-instance-type  = "t3.medium"
-  mon-instance-type       = "t3.medium"
-  app-instance-type       = "t3.medium"
-  app-public-subnet      = "${module.networking.public_subnet[0].id}"
+  ami                       = "ami-059f1cc52e6c85908"
+  vpc_security_group_ids    = ["${module.networking.security_group.id}"]
+  gitaly-instance-type      = "t3.medium"
+  gitaly-private-subnet     = "${module.networking.private_subnet[0].id}"
+  praefect-instance-type    = "t3.medium"
+  praefect-private-subnet   = "${module.networking.private_subnet[0].id}"
+  mon-instance-type         = "t3.medium"
+  mon-private-subnet        = "${module.networking.private_subnet[0].id}"
+  app-instance-type         = "t3.medium"
+  app-public-subnet         = "${module.networking.public_subnet[0].id}"
+}
+
+module "rds" {
+source = "./modules/rds"
+  private-subnets =["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
+  instance-type = "db.t3.medium"
+  gitlab-dbname = "gitlabpg"
+  gitlab-username = "gitlab"
+  gitlab-password = "Compaq1!"
+  praefect-dbname = "praefect"
+  praefect-username = "praefect"
+  praefect-password = "Compaq1!"
+  vpc_security_group_ids    = ["${module.networking.security_group.id}"]
 }
