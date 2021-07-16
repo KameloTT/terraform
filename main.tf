@@ -34,3 +34,11 @@ source = "./modules/rds"
   praefect-password = "Compaq1!"
   vpc_security_group_ids    = ["${module.networking.security_group.id}"]
 }
+
+module "elasticache" {
+source = "./modules/elasticache"
+  private-subnets =["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
+  availability_zones   = ["us-east-1a"]
+  instance-type = "cache.t3.medium"
+  vpc_security_group_ids    = ["${module.networking.security_group.id}"]
+}
