@@ -24,21 +24,38 @@ source = "./modules/ec2"
 
 module "rds" {
 source = "./modules/rds"
-  private-subnets =["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
-  instance-type = "db.t3.medium"
-  gitlab-dbname = "gitlabpg"
-  gitlab-username = "gitlab"
-  gitlab-password = "Compaq1!"
-  praefect-dbname = "praefect"
-  praefect-username = "praefect"
-  praefect-password = "Compaq1!"
+  private-subnets           = ["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
+  instance-type             = "db.t3.medium"
+  gitlab-dbname             = "gitlabpg"
+  gitlab-username           = "gitlab"
+  gitlab-password           = "Compaq1!"
+  praefect-dbname           = "praefect"
+  praefect-username         = "praefect"
+  praefect-password         = "Compaq1!"
   vpc_security_group_ids    = ["${module.networking.security_group.id}"]
 }
 
 module "elasticache" {
 source = "./modules/elasticache"
-  private-subnets =["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
-  availability_zones   = ["us-east-1a"]
-  instance-type = "cache.t3.medium"
+  private-subnets           = ["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
+  availability_zones        = ["us-east-1a"]
+  instance-type             = "cache.t3.medium"
   vpc_security_group_ids    = ["${module.networking.security_group.id}"]
+}
+
+module "eks" {
+source = "./modules/eks"
+  private-subnets           = ["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
+  instance-type             = "t3.medium"
+}
+
+module "lb" {
+source = "./modules/lb"
+  private-subnets           = ["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
+  vpc_security_group_ids    = ["${module.networking.security_group.id}"]
+  vpc_id                    = module.networking.vpc_id
+  public-subnets            = ["${module.networking.public_subnet[0].id}","${module.networking.public_subnet[1].id}","${module.networking.public_subnet[2].id}"]
+  app-instances             = module.ec2.app-instances
+  praefect-instances        = module.ec2.praefect-instances
+  mon-instances             = module.ec2.mon-instances
 }
