@@ -59,3 +59,15 @@ source = "./modules/lb"
   praefect-instances        = module.ec2.praefect-instances
   mon-instances             = module.ec2.mon-instances
 }
+
+module "route53" {
+source = "./modules/route53"
+  rh-zoneid                 = "/hostedzone/Z1N2PXZSW9EYEB"
+  lab-dns-zone              = "sandbox783.opentlc.com."
+  app-zone-id               = module.lb.application_zone_id
+  app-dns-name              = module.lb.application_elb
+  storage-zone-id           = module.lb.storage_zone_id
+  storage-dns-name          = module.lb.storage_elb
+  mon-zone-id               = module.lb.mon_zone_id
+  mon-dns-name              = module.lb.monitoring_elb
+}
