@@ -65,3 +65,7 @@ output "application_elb" {
 output "monitoring_elb" {
   value = module.lb.monitoring_elb
 }
+
+output "gitlab-gui" {
+  value = module.route53.gitlab-gui
+}

@@ -102,6 +102,7 @@ resource "aws_elb" "gitlab-monitoring-internal" {
   security_groups           = var.vpc_security_group_ids
   cross_zone_load_balancing = true
   connection_draining       = true
+  instances                 = var.mon-instances
 
   listener {
     instance_port     = 9090

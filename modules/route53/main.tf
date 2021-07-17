@@ -21,3 +21,27 @@ resource "aws_route53_record" "gui" {
     evaluate_target_health = true
   }
 }
+
+resource "aws_route53_record" "pages" {
+  zone_id = aws_route53_zone.gitlab.zone_id
+  name    = "pages"
+  type    = "A"
+
+  alias {
+    name                   = var.app-dns-name
+    zone_id                = var.app-zone-id
+    evaluate_target_health = true
+  }
+}
+
+resource "aws_route53_record" "registry" {
+  zone_id = aws_route53_zone.gitlab.zone_id
+  name    = "registry"
+  type    = "A"
+
+  alias {
+    name                   = var.app-dns-name
+    zone_id                = var.app-zone-id
+    evaluate_target_health = true
+  }
+}

@@ -71,3 +71,8 @@ source = "./modules/route53"
   mon-zone-id               = module.lb.mon_zone_id
   mon-dns-name              = module.lb.monitoring_elb
 }
+
+module "s3" {
+source = "./modules/s3"
+
+}
