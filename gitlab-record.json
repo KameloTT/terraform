@@ -1,23 +1,23 @@
 {
             "Comment": "CREATE/DELETE/UPSERT a record ",
             "Changes": [{
-            "Action": "CREATE",
+            "Action": "UPSERT",
                         "ResourceRecordSet": {
                                     "Name": "gitlab.sandbox783.opentlc.com.",
                                     "Type": "NS",
                                     "TTL": 300,
                                  "ResourceRecords": [
                                    {
-                                     "Value": "ns-411.awsdns-51.com"
+                                     "Value": "ns-707.awsdns-24.net"
                                    },
                                    {
-                                     "Value": "ns-1841.awsdns-38.co.uk"
+                                     "Value": "ns-385.awsdns-48.com"
                                    },
                                    {
-                                     "Value": "ns-909.awsdns-49.net"
+                                     "Value": "ns-1217.awsdns-24.org"
                                    },
                                    {
-                                     "Value": "ns-1074.awsdns-06.org"
+                                     "Value": "ns-1754.awsdns-27.co.uk"
                                    }
                                  ]
                        }}]
