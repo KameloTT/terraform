@@ -1,0 +1,333 @@
+roles ['monitoring_role']
+prometheus['listen_address'] = '0.0.0.0:9090'
+alertmanager['enable'] = true
+grafana['enable'] = false
+gitlab_rails['auto_migrate'] = false
+gitaly['enable'] = false
+gitaly['prometheus_listen_addr'] = nil
+gitlab_exporter['enable'] = false
+gitlab_workhorse['enable'] = false
+nginx['enable'] = false
+postgres_exporter['enable'] = false
+postgresql['enable'] = false
+redis['enable'] = false
+redis_exporter['enable'] = false
+sidekiq['enable'] = false
+puma['enable'] = false
+gitlab_exporter['enable'] = false
+consul['enable'] = false
+
+node_exporter['enable'] = false
+gitlab_rails['auto_migrate'] = false
+gitlab_rails['prometheus_address'] = '{{ monitoring_elb }}:9090'
+
+prometheus['monitor_kubernetes'] = false
+prometheus['scrape_interval'] = 60
+prometheus['scrape_timeout'] = 15
+prometheus['scrape_configs'] = [
+  {
+    'job_name' => 'postgres',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 9187,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['application']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'redis',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 9121,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['application']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'praefect',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 9652,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['praefect']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'gitaly',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 9236,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['gitaly']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'gitlab-rails',
+    'metrics_path': '/-/metrics',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 8080,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['application']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'gitlab-sidekiq',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 8082,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['application']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'gitlab-workhorse',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 9229,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['application']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'gitlab-exporter',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 9168,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['application']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'puma',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 8083,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['application']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'nginx',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 8060,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['application']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'registry',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 5001,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => ['application']
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  },
+  {
+    'job_name' => 'node',
+    'ec2_sd_configs' => [
+      {
+        'region': '{{ gitlab-region }}',
+        'port': 9100,
+        'filters' => [
+          {
+            'name': 'tag:app',
+            'values' => ['gitlab']
+          },
+          {
+            'name': 'tag:role',
+            'values' => [
+              'application',
+              'gitaly',
+              'praefect'
+            ]
+          }
+        ]
+      }
+    ],
+    'relabel_configs' => [
+      {
+        'source_labels' => ['__meta_ec2_tag_role'],
+        'target_label': 'role'
+      }
+    ]
+  }
+]

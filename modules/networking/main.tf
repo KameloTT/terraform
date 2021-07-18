@@ -72,6 +72,15 @@ resource "aws_route_table" "public" {
     Environment = "${var.environment}"
   }
 }
+
+#resource "aws_route_table" "private-public" {
+#  vpc_id = "${aws_vpc.vpc.id}"
+#  tags = {
+#    Name        = "${var.environment}-private-public-route-table"
+#    Environment = "${var.environment}"
+#  }
+#}
+
 resource "aws_route" "public_internet_gateway" {
   route_table_id         = "${aws_route_table.public.id}"
   destination_cidr_block = "0.0.0.0/0"
@@ -82,6 +91,12 @@ resource "aws_route" "private_nat_gateway" {
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = "${aws_nat_gateway.nat.id}"
 }
+
+#resource "aws_route" "private_public" {
+#  route_table_id         = "${aws_route_table.private-public.id}"
+#  destination_cidr_block = "0.0.0.0/0"
+#}
+
 /* Route table associations */
 resource "aws_route_table_association" "public" {
   count          = "${length(var.public_subnets_cidr)}"
@@ -93,6 +108,17 @@ resource "aws_route_table_association" "private" {
   subnet_id      = "${element(aws_subnet.private_subnet.*.id, count.index)}"
   route_table_id = "${aws_route_table.private.id}"
 }
+#resource "aws_route_table_association" "private1" {
+#  count          = "${length(var.private_subnets_cidr)}"
+#  subnet_id      = "${element(aws_subnet.private_subnet.*.id, count.index)}"
+#  route_table_id = "${aws_route_table.private-public.id}"
+#}
+#resource "aws_route_table_association" "public1" {
+#  count          = "${length(var.public_subnets_cidr)}"
+#  subnet_id      = "${element(aws_subnet.public_subnet.*.id, count.index)}"
+#  route_table_id = "${aws_route_table.private-public.id}"
+#}
+
 /*==== VPC's Default Security Group ======*/
 resource "aws_security_group" "default" {
   name        = "${var.environment}-default-sg"

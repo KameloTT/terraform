@@ -1,5 +1,5 @@
-output "app-1-public-dns" {
-  value = module.ec2.app-public-dns
+output "bastion-public-dns" {
+  value = module.ec2.bastion-public-dns
 }
 
 output "app-1-private-dns" {
@@ -27,12 +27,12 @@ output "gitlab_database_password" {
   sensitive = true
 }
 
-output "storage_database_endpoint" {
-  value = module.rds.storage_database_endpoint
+output "praefect_database_endpoint" {
+  value = module.rds.praefect_database_endpoint
 }
 
-output "storage_database_password" {
-  value = module.rds.storage_database_password
+output "praefect_database_password" {
+  value = module.rds.praefect_database_password
   sensitive = true
 }
 

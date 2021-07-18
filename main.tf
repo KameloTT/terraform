@@ -19,7 +19,9 @@ source = "./modules/ec2"
   mon-instance-type         = "t3.medium"
   mon-private-subnet        = "${module.networking.private_subnet[0].id}"
   app-instance-type         = "t3.medium"
-  app-public-subnet         = "${module.networking.public_subnet[0].id}"
+  app-private-subnet        = "${module.networking.private_subnet[0].id}"
+  bastion-instance-type     = "t3.medium"
+  bastion-public-subnet     = "${module.networking.public_subnet[0].id}"
 }
 
 module "rds" {
@@ -74,5 +76,40 @@ source = "./modules/route53"
 
 module "s3" {
 source = "./modules/s3"
+}
 
+module "ansible" {
+source = "./modules/ansible"
+#  app-instance-public-ip   = module.ec2.app-public-dns
+  app-instances-ip          = module.ec2.app-1-private-dns
+  gitaly-instances-ip       = module.ec2.gitaly-1-private-dns
+  praefect-instances-ip     = module.ec2.praefect-1-private-dns
+  mon-instances-ip          = module.ec2.mon-1-private-dns
+  gitlab-lb-url             = module.lb.application_elb
+  gitlab_version            = "15.0.4"
+  praefect_internal_token   = "BFGSn2jdHtCvbacG"
+  praefect_external_token   = "YDjg8YRpQnQeTEBm"
+  gitlab_root_password      = "Compaq1!"
+  grafana_admin_password    = "Compaq1!"
+  praefect-database-endpoint  = module.rds.praefect_database_endpoint
+  praefect-db-username      = "praefect"
+  praefect-db-password      = module.rds.praefect_database_password
+  praefect-db-name          = "praefect"
+  gitlab-gui                = module.route53.gitlab-gui
+  gitlab-pages              = module.route53.gitlab-pages
+  gitlab-registry           = module.route53.gitlab-registry
+  gitlab-region             = var.region
+  gitlab-database-endpoint  = module.rds.gitlab_database_endpoint
+  gitlab-db-name            = "gitlabpg"
+  gitlab-db-username        = "gitlab"
+  gitlab-db-password        = module.rds.gitlab_database_password
+  elasticache_endpoint      = module.elasticache.elasticache_endpoint
+  s3-registry               = module.s3.s3-registry
+  s3-backup                 = module.s3.s3-backup
+  s3-artifacts              = module.s3.s3-artifacts
+  s3-uploads                = module.s3.s3-uploads
+  s3-diffs                  = module.s3.s3-diffs
+  s3-lfs                    = module.s3.s3-lfs
+  monitoring_elb            = module.lb.monitoring_elb
+  praefect-lb-url           = module.lb.storage_elb
 }

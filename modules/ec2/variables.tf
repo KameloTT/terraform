@@ -11,5 +11,7 @@ variable "mon-instance-type" {}
 variable "mon-private-subnet" {}
 
 variable "app-instance-type" {}
-variable "app-public-subnet" {}
+variable "app-private-subnet" {}
 
+variable "bastion-instance-type" {}
+variable "bastion-public-subnet" {}
