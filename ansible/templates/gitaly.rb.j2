@@ -11,7 +11,7 @@ alertmanager['enable'] = false
 consul['enable'] = false
 
 gitlab_rails['auto_migrate'] = false
-gitlab_rails['internal_api_url'] = 'https://{{gitlab-lb-url}}'
+gitlab_rails['internal_api_url'] = 'https://{{ gitlab_lb_url }}'
 
 praefect['enable'] = false
 gitaly['enable'] = true

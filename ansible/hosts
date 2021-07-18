@@ -2,8 +2,8 @@
 ip-172-19-57-50.ec2.internal
 
 [gitaly]
-ip-172-19-52-13.ec2.internal
-ip-172-19-49-199.ec2.internal
+ip-172-19-56-194.ec2.internal
+ip-172-19-52-240.ec2.internal
 
 [praefect]
 ip-172-19-51-249.ec2.internal

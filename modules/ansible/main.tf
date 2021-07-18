@@ -1,10 +1,10 @@
 resource "local_file" "ansible_hosts" {
   content = templatefile("${path.module}/templates/hosts.js",
     {
-     app-instances = var.app-instances-ip
-     gitaly-instances = var.gitaly-instances-ip
-     praefect-instances = var.praefect-instances-ip
-     mon-instances = var.mon-instances-ip
+     app_instances = var.app_instances_ip
+     gitaly_instances = var.gitaly_instances_ip
+     praefect_instances = var.praefect_instances_ip
+     mon_instances = var.mon_instances_ip
     }
   )
   filename = "ansible/hosts"
@@ -16,28 +16,28 @@ resource "local_file" "ansible_vars" {
     "praefect_external_token"    : var.praefect_external_token
     "gitlab_root_password"       : var.gitlab_root_password
     "grafana_admin_password"     : var.grafana_admin_password
-    "gitlab-lb-url"              : var.gitlab-lb-url
-    "praefect_database-endpoint" : var.praefect-database-endpoint
-    "praefect-db-username"       : var.praefect-db-username
-    "praefect-db-password"       : var.praefect-db-password
-    "praefect-db-name"           : var.praefect-db-name
-    "gitlab-gui"                 : var.gitlab-gui
-    "gitlab-pages"               : var.gitlab-pages
-    "gitlab-registry"            : var.gitlab-registry
-    "gitlab-region"              : var.gitlab-region
-    "gitlab-database-endpoint"   : var.gitlab-database-endpoint
-    "gitlab-db-name"             : var.gitlab-db-name
-    "gitlab-db-username"         : var.gitlab-db-username
-    "gitlab-db-password"         : var.gitlab-db-password
+    "gitlab_lb_url"              : var.gitlab_lb_url
+    "praefect_database_endpoint" : var.praefect_database_endpoint
+    "praefect_db_username"       : var.praefect_db_username
+    "praefect_db_password"       : var.praefect_db_password
+    "praefect_db_name"           : var.praefect_db_name
+    "gitlab_gui"                 : var.gitlab_gui
+    "gitlab_pages"               : var.gitlab_pages
+    "gitlab_registry"            : var.gitlab_registry
+    "gitlab_region"              : var.gitlab_region
+    "gitlab_database_endpoint"   : var.gitlab_database_endpoint
+    "gitlab_db_name"             : var.gitlab_db_name
+    "gitlab_db_username"         : var.gitlab_db_username
+    "gitlab_db_password"         : var.gitlab_db_password
     "elasticache_endpoint"       : var.elasticache_endpoint
-    "s3-registry"                : var.s3-registry
-    "s3-backup"                  : var.s3-backup
-    "s3-artifacts"               : var.s3-artifacts
-    "s3-uploads"                 : var.s3-uploads
-    "s3-diffs"                   : var.s3-diffs
-    "s3-lfs"                     : var.s3-lfs
+    "s3_registry"                : var.s3_registry
+    "s3_backup"                  : var.s3_backup
+    "s3_artifacts"               : var.s3_artifacts
+    "s3_uploads"                 : var.s3_uploads
+    "s3_diffs"                   : var.s3_diffs
+    "s3_lfs"                     : var.s3_lfs
     "monitoring_elb"             : var.monitoring_elb
-    "praefect-lb-url"            : var.praefect-lb-url
+    "praefect_lb_url"            : var.praefect_lb_url
   })
   filename        = "${path.module}/../../ansible/group_vars/all"
   file_permission = "0666"

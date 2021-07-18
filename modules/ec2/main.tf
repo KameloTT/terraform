@@ -13,6 +13,10 @@ resource "aws_instance" "gitaly-1" {
   root_block_device {
     volume_size = "20"
   }
+  ebs_block_device {
+    device_name = "/dev/xvdb"
+    volume_size = "80"
+  }
   tags = {
    app = "gitlab"
    role = "gitaly"

@@ -17,23 +17,21 @@ gitlab_rails['auto_migrate'] = false
 praefect['listen_addr'] = '0.0.0.0:2305'
 praefect['prometheus_listen_addr'] = '0.0.0.0:9652'
 praefect['auth_token'] = '{{ praefect_external_token }}'
-praefect['database_host'] = '{{ praefect-database-endpoint }}'
-praefect['database_user'] = '{{ praefect-db-username }}'
-praefect['database_password'] = '{{ praefect-db-password }}'
-praefect['database_dbname'] = '{{ praefect-db-name }}'
+praefect['database_host'] = '{{ praefect_database_endpoint }}'
+praefect['database_user'] = '{{ praefect_db_username }}'
+praefect['database_password'] = '{{ praefect_db_password }}'
+praefect['database_dbname'] = '{{ praefect_db_name }}'
 praefect['postgres_queue_enabled'] = true
 praefect['failover_enabled'] = true
 praefect['auto_migrate'] = true
 praefect['failover_election_strategy'] = 'sql'
 praefect['virtual_storages'] = {
   'default' => {
-    '${ gitaly-1 }' => {
-      'address' => 'tcp://${ gitaly-1 }:8075',
-      'token'   => '{{ gitaly-internal-token }}',
+{% for host in groups['praefect'] %}
+    '{{ host }}' => {
+      'address' => 'tcp://{{ host }}:8075',
+      'token'   => '{{ praefect_internal_token }}',
     },
-    '${ gitaly-2 }' => {
-      'address' => 'tcp://${ gitaly-2 }:8075',
-      'token'   => '{{ gitaly-internal-token }}',
-    },
-  }
+{% endfor %}
+
 }

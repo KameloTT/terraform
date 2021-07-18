@@ -1,0 +1,37 @@
+- hosts: gitaly
+  become: true
+  tasks:
+  - block:
+    - name: Create Linux group for Gitaly
+      ansible.builtin.group:
+        name: git
+        state: present
+        gid: 992
+    - name: Create Linux user for Gitaly
+      ansible.builtin.user:
+        name: git
+        uid: 995
+        group: git
+        home: /var/opt/gitlab
+        shell: /bin/sh
+    - name: Create filesystem on Gitaly volume
+      filesystem:
+        fstype: ext4
+        dev: /dev/nvme1n1
+    - name: Mount Gitaly volume
+      mount:
+        path: /gitaly
+        src: /dev/nvme1n1
+        state: mounted
+        fstype: ext4
+    ignore_errors: yes
+
+  - name: Copy gitaly.rb
+    template:
+      src: gitaly.rb.j2
+      dest: /etc/gitlab/gitlab.rb
+    notify: gitlab-ctl reconfigure and restart
+
+  handlers:
+  - name: gitlab-ctl reconfigure and restart
+    shell: gitlab-ctl reconfigure && gitlab-ctl restart

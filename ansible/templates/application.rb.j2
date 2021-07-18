@@ -1,13 +1,13 @@
 roles ['geo_primary_role']
-external_url 'https://{{ gitlab-gui }}'
-pages_external_url 'https://{{ gitlab-pages }}'
-registry_external_url 'https://{{ gitlab-registry }}'
-gitlab_rails['initial_root_password'] = '{{ gitlab-root-password }}'
-gitlab_rails['geo_node_name'] = 'gitlab-{{ gitlab-region }}'
-gitlab_rails['db_host'] = '{{ gitlab-database-endpoint }}'
-gitlab_rails['db_database'] = '{{ gitlab-db-name }}'
-gitlab_rails['db_username'] = '{{ gitlab-db-username }}'
-gitlab_rails['db_password'] = '{{ gitlab-db-password }}'
+external_url 'https://{{ gitlab_gui }}'
+pages_external_url 'https://{{ gitlab_pages }}'
+registry_external_url 'https://{{ gitlab_registry }}'
+gitlab_rails['initial_root_password'] = '{{ gitlab_root_password }}'
+gitlab_rails['geo_node_name'] = 'gitlab_{{ gitlab_region }}'
+gitlab_rails['db_host'] = '{{ gitlab_database_endpoint }}'
+gitlab_rails['db_database'] = '{{ gitlab_db_name }}'
+gitlab_rails['db_username'] = '{{ gitlab_db_username }}'
+gitlab_rails['db_password'] = '{{ gitlab_db_password }}'
 gitlab_rails['db_sslmode'] = 'require'
 gitlab_rails['db_adapter'] = 'postgresql'
 gitlab_rails['redis_host'] = '{{ elasticache_endpoint }}'
@@ -26,8 +26,8 @@ prometheus['enable'] = false
 alertmanager['enable'] = false
 registry['storage'] = {
   's3' => {
-    'bucket' => '{{ s3-registry }}',
-    'region' => '{{ gitlab-region }}',
+    'bucket' => '{{ s3_registry }}',
+    'region' => '{{ gitlab_region }}',
   }
 }
 registry['health_storagedriver_enabled'] = false
@@ -58,7 +58,7 @@ puma['exporter_enabled'] = true
 puma['exporter_address'] = '0.0.0.0'
 consul['enable'] = false
 postgres_exporter['enable'] = true
-postgres_exporter['host'] = '{{ gitlab-database-endpoint }}'
+postgres_exporter['host'] = '{{ gitlab_database_endpoint }}'
 postgres_exporter['sslmode'] = 'require'
 postgres_exporter['listen_address'] = '0.0.0.0:9187'
 redis_exporter['enable'] = true
@@ -79,64 +79,64 @@ gitlab_rails['prometheus_address'] = '{{ monitoring_elb }}:9090'
 
 git_data_dirs({
   'default' => {
-    "gitaly_address" => "tcp://{{ praefect-lb-url }}:2305",
+    "gitaly_address" => "tcp://{{ praefect_lb_url }}:2305",
     "gitaly_token" => '{{ praefect_external_token }}'
   }
 })
 
-gitlab_rails['backup_upload_remote_directory'] = '{{ s3-backup }}'
+gitlab_rails['backup_upload_remote_directory'] = '{{ s3_backup }}'
 gitlab_rails['backup_upload_connection'] = {
   'provider' => 'AWS',
-  'region' => '{{ gitlab-region }}',
+  'region' => '{{ gitlab_region }}',
   'use_iam_profile' => true
 }
 
 gitlab_rails['artifacts_enabled'] = true
 gitlab_rails['artifacts_object_store_enabled'] = true
 gitlab_rails['artifacts_object_store_direct_upload'] = true
-gitlab_rails['artifacts_object_store_remote_directory'] = '{{ s3-artifacts }}'
+gitlab_rails['artifacts_object_store_remote_directory'] = '{{ s3_artifacts }}'
 gitlab_rails['artifacts_object_store_connection'] = {
   'provider' => 'AWS',
-  'region' => '{{ gitlab-region }}',
+  'region' => '{{ gitlab_region }}',
   'use_iam_profile' => true
 }
 
 gitlab_rails['uploads_object_store_enabled'] = true
 gitlab_rails['uploads_object_store_direct_upload'] = true
-gitlab_rails['uploads_object_store_remote_directory'] = '{{ s3-uploads }}'
+gitlab_rails['uploads_object_store_remote_directory'] = '{{ s3_uploads }}'
 gitlab_rails['uploads_object_store_connection'] = {
   'provider' => 'AWS',
-  'region' => '{{ gitlab-region }}',
+  'region' => '{{ gitlab_region }}',
   'use_iam_profile' => true
 }
 
 gitlab_rails['packages_enabled'] = true
 gitlab_rails['packages_object_store_enabled'] = true
-gitlab_rails['packages_object_store_remote_directory'] = '{{ s3-registry }}'
+gitlab_rails['packages_object_store_remote_directory'] = '{{ s3_registry }}'
 gitlab_rails['packages_object_store_direct_upload'] = true
 gitlab_rails['packages_object_store_connection'] = {
   'provider' => 'AWS',
-  'region' => '{{ gitlab-region }}',
+  'region' => '{{ gitlab_region }}',
   'use_iam_profile' => true
 }
 
 gitlab_rails['external_diffs_enabled'] = true
 gitlab_rails['external_diffs_object_store_enabled'] = true
 gitlab_rails['external_diffs_object_store_direct_upload'] = true
-gitlab_rails['external_diffs_object_store_remote_directory'] = '{{ s3-diffs }}'
+gitlab_rails['external_diffs_object_store_remote_directory'] = '{{ s3_diffs }}'
 gitlab_rails['external_diffs_object_store_connection'] = {
   'provider' => 'AWS',
-  'region' => '{{ gitlab-region }}',
+  'region' => '{{ gitlab_region }}',
   'use_iam_profile' => true
 }
 
 gitlab_rails['lfs_enabled'] = true
 gitlab_rails['lfs_object_store_enabled'] = true
 gitlab_rails['lfs_object_store_direct_upload'] = true
-gitlab_rails['lfs_object_store_remote_directory'] = '{{ s3-lfs }}'
+gitlab_rails['lfs_object_store_remote_directory'] = '{{ s3_lfs }}'
 gitlab_rails['lfs_object_store_connection'] = {
   'provider' => 'AWS',
-  'region' => '{{ gitlab-region }}',
+  'region' => '{{ gitlab_region }}',
   'use_iam_profile' => true
 }
 

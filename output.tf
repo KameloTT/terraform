@@ -1,5 +1,5 @@
 output "bastion-public-dns" {
-  value = module.ec2.bastion-public-dns
+  value = module.ec2.bastion-public-dns[0]
 }
 
 output "app-1-private-dns" {
