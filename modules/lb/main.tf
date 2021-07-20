@@ -9,16 +9,16 @@ resource "aws_elb" "gitlab-storage-internal" {
 
   listener {
     instance_port     = 2305
-    instance_protocol = "tcp"
+    instance_protocol = "TCP"
     lb_port           = 2305
-    lb_protocol       = "tcp"
+    lb_protocol       = "TCP"
   }
 
   health_check {
     healthy_threshold   = 2
     unhealthy_threshold = 2
     timeout             = 3
-    target              = "tcp:2305"
+    target              = "TCP:2305"
     interval            = 30
   }
 
@@ -35,21 +35,22 @@ module "gitlab-nlb-public" {
   load_balancer_type = "network"
   vpc_id             = var.vpc_id
   subnets            = var.public-subnets
+  enable_cross_zone_load_balancing = true
 
   target_groups = [
     {
       name_prefix      = "ssh-"
-      backend_protocol = "tcp"
+      backend_protocol = "TCP"
       backend_port     = 22
       target_type      = "instance"
       health_check = {
         port     = 22
-        protocol = "tcp"
+        protocol = "TCP"
       }
     },
     {
       name_prefix      = "http-"
-      backend_protocol = "tcp"
+      backend_protocol = "TCP"
       backend_port     = 80
       target_type      = "instance"
       health_check = {
@@ -60,7 +61,7 @@ module "gitlab-nlb-public" {
     },
     {
       name_prefix      = "https-"
-      backend_protocol = "tcp"
+      backend_protocol = "TCP"
       backend_port     = 443
       target_type      = "instance"
       health_check = {
@@ -74,17 +75,17 @@ module "gitlab-nlb-public" {
   http_tcp_listeners = [
     {
       port               = 22
-      protocol           = "tcp"
+      protocol           = "TCP"
       target_group_index = 0
     },
     {
       port               = 80
-      protocol           = "tcp"
+      protocol           = "TCP"
       target_group_index = 1
     },
     {
       port               = 443
-      protocol           = "tcp"
+      protocol           = "TCP"
       target_group_index = 2
     }
   ]
@@ -106,9 +107,9 @@ resource "aws_elb" "gitlab-monitoring-internal" {
 
   listener {
     instance_port     = 9090
-    instance_protocol = "tcp"
+    instance_protocol = "TCP"
     lb_port           = 9090
-    lb_protocol       = "tcp"
+    lb_protocol       = "TCP"
   }
 
   health_check {

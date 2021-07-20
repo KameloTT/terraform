@@ -16,4 +16,8 @@
       path: /var/opt/gitlab/bootstrapped
       state: touch
   - yum:
-      name: "gitlab-ee-{{ gitlab_version }}"
+      name: "{{item}}" 
+    loop:
+      - "gitlab-ee-{{ gitlab_version }}"
+      - "policycoreutils-python-utils"
+      - "vim"

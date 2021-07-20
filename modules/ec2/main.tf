@@ -14,8 +14,8 @@ resource "aws_instance" "gitaly-1" {
     volume_size = "20"
   }
   ebs_block_device {
-    device_name = "/dev/xvdb"
     volume_size = "80"
+    device_name = "/dev/xvdb"
   }
   tags = {
    app = "gitlab"
@@ -50,6 +50,7 @@ resource "aws_instance" "mon-1" {
   key_name = "${aws_key_pair.gitlab.key_name}"
   vpc_security_group_ids = var.vpc_security_group_ids
   subnet_id = var.mon-private-subnet
+  iam_instance_profile = "${aws_iam_instance_profile.all_profile.name}"
   lifecycle {
     create_before_destroy = true
   }
@@ -57,6 +58,10 @@ resource "aws_instance" "mon-1" {
   ebs_optimized = true
   root_block_device {
     volume_size = "20"
+  }
+  ebs_block_device {
+    volume_size = "80"
+    device_name = "/dev/xvdb"
   }
   tags = {
    app = "gitlab"

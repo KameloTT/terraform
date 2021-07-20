@@ -6,6 +6,9 @@ source = "./modules/networking"
   public_subnets_cidr  = ["172.19.0.0/20", "172.19.16.0/20", "172.19.32.0/20"]
   private_subnets_cidr = ["172.19.48.0/20", "172.19.64.0/20", "172.19.80.0/20"]
   availability_zones   = ["us-east-1a","us-east-1b","us-east-1c"]
+#  public_subnets_cidr  = ["172.19.0.0/20"]
+#  private_subnets_cidr = ["172.19.48.0/20"]
+#  availability_zones   = ["us-east-1a"]
 }
 
 module "ec2" {
@@ -53,10 +56,12 @@ source = "./modules/eks"
 
 module "lb" {
 source = "./modules/lb"
-  private-subnets           = ["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
+#  private-subnets           = ["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
+  private-subnets           = ["${module.networking.private_subnet[0].id}"]
   vpc_security_group_ids    = ["${module.networking.security_group.id}"]
   vpc_id                    = module.networking.vpc_id
-  public-subnets            = ["${module.networking.public_subnet[0].id}","${module.networking.public_subnet[1].id}","${module.networking.public_subnet[2].id}"]
+#  public-subnets            = ["${module.networking.public_subnet[0].id}","${module.networking.public_subnet[1].id}","${module.networking.public_subnet[2].id}"]
+  public-subnets            = ["${module.networking.public_subnet[0].id}"]
   app-instances             = module.ec2.app-instances
   praefect-instances        = module.ec2.praefect-instances
   mon-instances             = module.ec2.mon-instances

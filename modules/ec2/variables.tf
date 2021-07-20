@@ -15,3 +15,4 @@ variable "app-private-subnet" {}
 
 variable "bastion-instance-type" {}
 variable "bastion-public-subnet" {}
+

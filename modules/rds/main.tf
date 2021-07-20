@@ -8,7 +8,7 @@ module "rds" {
   version               = "2.20"
   identifier            = "gitlab-db"
   engine                = "postgres"
-  engine_version        = "11.10"
+  engine_version        = "13.1"
   instance_class        = var.instance-type
   allocated_storage     = 50
   storage_type          = "gp2"
@@ -29,11 +29,12 @@ module "rds" {
   backup_window           = "03:00-06:00"
 
   db_subnet_group_name      = aws_db_subnet_group.default.name
-  parameter_group_name      = "default.postgres11"
+  parameter_group_name      = "default.postgres13"
   create_db_parameter_group = false
   create_db_option_group    = false
 
   deletion_protection = false
+  allow_major_version_upgrade = true
 }
 
 module "rds-storage" {
@@ -41,7 +42,7 @@ module "rds-storage" {
   version               = "2.20"
   identifier            = "gitlab-storage"
   engine                = "postgres"
-  engine_version        = "11.10"
+  engine_version        = "13.1"
   instance_class        = var.instance-type
   allocated_storage     = 50
   storage_type          = "gp2"
@@ -61,9 +62,10 @@ module "rds-storage" {
   backup_window           = "03:00-06:00"
 
   db_subnet_group_name      = aws_db_subnet_group.default.name
-  parameter_group_name      = "default.postgres11"
+  parameter_group_name      = "default.postgres13"
   create_db_parameter_group = false
   create_db_option_group    = false
 
   deletion_protection = false
+  allow_major_version_upgrade = true
 }
