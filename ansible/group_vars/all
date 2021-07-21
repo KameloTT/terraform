@@ -4,7 +4,7 @@
 "gitlab_db_password": "Compaq1!"
 "gitlab_db_username": "gitlab"
 "gitlab_gui": "gui.gitlab.sandbox783.opentlc.com"
-"gitlab_lb_url": "gitlab-nlb-public-2b88611a0328fc32.elb.us-east-1.amazonaws.com"
+"gitlab_lb_url": "gitlab-nlb-public-794800721.us-east-1.elb.amazonaws.com"
 "gitlab_pages": "pages.gitlab.sandbox783.opentlc.com"
 "gitlab_region": "us-east-1"
 "gitlab_registry": "registry.gitlab.sandbox783.opentlc.com"

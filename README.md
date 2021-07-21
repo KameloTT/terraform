@@ -1,5 +1,7 @@
 #GITALY:
 
+## check io
+  `#pidstat -dl 20`
 ##Configure replication factor
 ☝️ since Gitlab 13.12
 - Gitaly Cluster supports electing repository-specific primary Gitaly nodes. Repository-specific
@@ -40,5 +42,6 @@ Gitaly primary nodes are enabled in /etc/gitlab/gitlab.rb by setting
 
 ## Gracefully stop process
   `gitlab-ctl hup puma`
-
+  - In case of restarting puma is required to restart sidekiq as well
+    `gitlab-ctl restart sidekiq`
 

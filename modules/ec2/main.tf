@@ -75,7 +75,8 @@ resource "aws_instance" "app-1" {
   instance_type = var.app-instance-type
   key_name = "${aws_key_pair.gitlab.key_name}"
   vpc_security_group_ids = var.vpc_security_group_ids
-  subnet_id = var.app-private-subnet
+  subnet_id = var.app-public-subnet
+  associate_public_ip_address = true
   lifecycle {
     create_before_destroy = true
   }

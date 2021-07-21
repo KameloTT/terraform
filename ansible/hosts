@@ -1,5 +1,5 @@
 [app]
-ip-172-19-57-50.ec2.internal
+ip-172-19-8-232.ec2.internal
 
 [gitaly]
 ip-172-19-51-67.ec2.internal

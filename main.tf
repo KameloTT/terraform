@@ -22,7 +22,8 @@ source = "./modules/ec2"
   mon-instance-type         = "t3.medium"
   mon-private-subnet        = "${module.networking.private_subnet[0].id}"
   app-instance-type         = "t3.medium"
-  app-private-subnet        = "${module.networking.private_subnet[0].id}"
+#  app-private-subnet        = "${module.networking.private_subnet[0].id}"
+  app-public-subnet     = "${module.networking.public_subnet[0].id}"
   bastion-instance-type     = "t3.medium"
   bastion-public-subnet     = "${module.networking.public_subnet[0].id}"
 }
@@ -61,10 +62,11 @@ source = "./modules/lb"
   vpc_security_group_ids    = ["${module.networking.security_group.id}"]
   vpc_id                    = module.networking.vpc_id
 #  public-subnets            = ["${module.networking.public_subnet[0].id}","${module.networking.public_subnet[1].id}","${module.networking.public_subnet[2].id}"]
-  public-subnets            = ["${module.networking.public_subnet[0].id}"]
+  public-subnets            = ["${module.networking.public_subnet[0].id}","${module.networking.public_subnet[1].id}"]
   app-instances             = module.ec2.app-instances
   praefect-instances        = module.ec2.praefect-instances
   mon-instances             = module.ec2.mon-instances
+  domain                    = "sandbox783.opentlc.com"
 }
 
 module "route53" {
