@@ -23,7 +23,7 @@ gitlab_rails['prometheus_address'] = '{{ monitoring_elb }}:9090'
 
 prometheus['monitor_kubernetes'] = false
 prometheus['scrape_interval'] = 60
-prometheus['scrape_timeout'] = 15
+prometheus['scrape_timeout'] = 30
 prometheus['scrape_configs'] = [
   {
     'job_name' => 'postgres',

@@ -9,8 +9,15 @@
     template:
       src: application.rb.j2
       dest: /etc/gitlab/gitlab.rb
+  - name: Create gitlab-secrets.json
+    copy:
+      src: "files/gitlab-secrets.json"
+      dest: /etc/gitlab/gitlab-secrets.json
+      owner: root
+      group: root
+      mode: 0600
   - name: gitlab-ctl reconfigure
-    shell: gitlab-ctl reconfigure
+    shell: (gitlab-ctl reconfigure || gitlab-ctl reconfigure)
   - name: Run DB migrations on primary region app node
     shell: gitlab-rake gitlab:db:configure
   - name: gitlab-ctl restart
@@ -38,5 +45,6 @@
     service:
       name: sshd
       state: restarted
-  - name: restart Gitlab Pages
-    shell: gitlab-ctl restart gitlab-pages
+
+#  - name: restart Gitlab Pages
+#    shell: gitlab-ctl restart gitlab-pages

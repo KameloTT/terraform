@@ -6,11 +6,11 @@
       ansible.builtin.group:
         name: git
         state: present
-        gid: 992
+        gid: 932
     - name: Create Linux user for Gitaly
       ansible.builtin.user:
         name: git
-        uid: 995
+        uid: 935
         group: git
         home: /var/opt/gitlab
         shell: /bin/sh
@@ -25,7 +25,14 @@
         state: mounted
         fstype: ext4
     ignore_errors: yes
-
+  - name: Create gitlab-secrets.json
+    copy:
+      src: "files/gitlab-secrets.json"
+      dest: /etc/gitlab/gitlab-secrets.json
+      owner: root
+      group: root
+      mode: 0600
+    notify: gitlab-ctl reconfigure and restart
   - name: Copy gitaly.rb
     template:
       src: gitaly.rb.j2
@@ -34,4 +41,4 @@
 
   handlers:
   - name: gitlab-ctl reconfigure and restart
-    shell: gitlab-ctl reconfigure && gitlab-ctl restart
+    shell: (gitlab-ctl reconfigure || gitlab-ctl reconfigure) && gitlab-ctl restart

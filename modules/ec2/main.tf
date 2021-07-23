@@ -97,6 +97,7 @@ resource "aws_instance" "bastion" {
   instance_type = var.bastion-instance-type
   key_name = "${aws_key_pair.gitlab.key_name}"
   vpc_security_group_ids = var.vpc_security_group_ids
+#  iam_instance_profile = "${aws_iam_instance_profile.all_profile.name}"
   subnet_id = var.bastion-public-subnet
   associate_public_ip_address = true
   lifecycle {

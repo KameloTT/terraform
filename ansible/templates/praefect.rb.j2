@@ -25,16 +25,20 @@ praefect['postgres_queue_enabled'] = true
 praefect['failover_enabled'] = true
 praefect['auto_migrate'] = true
 praefect['reconciliation_scheduling_interval'] = '5m'
-#praefect['failover_election_strategy'] = 'sql'
-praefect['failover_election_strategy'] = 'per_repository'
+praefect['failover_election_strategy'] = 'sql'
+#praefect['failover_election_strategy'] = 'per_repository'
+#praefect['virtual_storages'] = {
+#  'default' => {
+#  'default_replication_factor' => 2,
+#  'nodes' => {
 praefect['virtual_storages'] = {
-  'default' => {
+   'default' => {
 {% for host in groups['gitaly'] %}
     '{{ host }}' => {
       'address' => 'tcp://{{ host }}:8075',
       'token'   => '{{ praefect_internal_token }}',
     },
 {% endfor %}
-  }
+   }
 
 }

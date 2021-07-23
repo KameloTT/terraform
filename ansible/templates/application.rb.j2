@@ -1,3 +1,10 @@
+gitlab_rails['gitlab_default_projects_features_issues'] = true
+gitlab_rails['gitlab_default_projects_features_merge_requests'] = true
+gitlab_rails['gitlab_default_projects_features_wiki'] = true
+gitlab_rails['gitlab_default_projects_features_snippets'] = true
+gitlab_rails['gitlab_default_projects_features_builds'] = true
+gitlab_rails['gitlab_default_projects_features_container_registry'] = true
+
 roles ['geo_primary_role']
 external_url 'http://{{ gitlab_gui }}'
 pages_external_url 'http://{{ gitlab_pages }}'
@@ -15,7 +22,7 @@ gitlab_rails['redis_ssl'] = true
 gitlab_rails['auto_migrate'] = true
 gitlab_pages['enable'] = true
 gitlab_pages['external_http'] = [':10080']
-gitlab_pages['external_https'] = [':10443']
+#gitlab_pages['external_https'] = [':10443']
 gitlab_pages['inplace_chroot'] = true
 pages_nginx['enable'] = false
 postgresql['enable'] = false

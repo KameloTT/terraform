@@ -45,3 +45,7 @@ Gitaly primary nodes are enabled in /etc/gitlab/gitlab.rb by setting
   - In case of restarting puma is required to restart sidekiq as well
     `gitlab-ctl restart sidekiq`
 
+#APP:
+
+## check config
+  `gitlab-rake gitlab:check`

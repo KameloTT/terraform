@@ -7,12 +7,12 @@
       ansible.builtin.group:
         state: present
         name: gitlab-prometheus
-        gid: 990
+        gid: 930
     - name: Create Linux user for Prometheus
       ansible.builtin.user:
         state: present
         name: gitlab-prometheus
-        uid: 993
+        uid: 933
         group: gitlab-prometheus
         home: /var/opt/gitlab/prometheus
         shell: /bin/sh
@@ -35,6 +35,15 @@
       state: mounted
       fstype: ext4
     notify: gitlab-ctl reconfigure and restart
+  - name: Create gitlab-secrets.json
+    copy:
+      src: "files/gitlab-secrets.json"
+      dest: /etc/gitlab/gitlab-secrets.json
+      owner: root
+      group: root
+      mode: 0600
+    notify: gitlab-ctl reconfigure and restart
+
   - name: Copy monitoring.rb
     template:
       src: monitoring.rb.j2
@@ -43,4 +52,4 @@
 
   handlers:
   - name: gitlab-ctl reconfigure and restart
-    shell: gitlab-ctl reconfigure && gitlab-ctl restart
+    shell: (gitlab-ctl reconfigure || gitlab-ctl reconfigure) && gitlab-ctl restart

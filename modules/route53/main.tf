@@ -2,13 +2,14 @@ resource "aws_route53_zone" "gitlab" {
   name = "gitlab.${var.lab-dns-zone}"
 }
 
-#resource "aws_route53_record" "gitlab-ns" {
-#  zone_id = var.rh-zoneid
-#  name    = aws_route53_zone.gitlab.name
-#  type    = "NS"
-#  ttl     = "300"
-#  records = aws_route53_zone.gitlab.name_servers
-#}
+resource "aws_route53_record" "gitlab-ns" {
+  zone_id = var.rh-zoneid
+  name    = aws_route53_zone.gitlab.name
+  type    = "NS"
+  ttl     = "300"
+  records = aws_route53_zone.gitlab.name_servers
+  allow_overwrite = true
+}
 
 resource "aws_route53_record" "gui" {
   zone_id = aws_route53_zone.gitlab.zone_id

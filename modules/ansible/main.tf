@@ -1,6 +1,7 @@
 resource "local_file" "ansible_hosts" {
   content = templatefile("${path.module}/templates/hosts.js",
     {
+     bastion_instance = var.bastion_instance_ip
      app_instances = var.app_instances_ip
      gitaly_instances = var.gitaly_instances_ip
      praefect_instances = var.praefect_instances_ip

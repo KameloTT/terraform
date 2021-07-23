@@ -1,0 +1,73 @@
+- hosts: app
+  become: true
+  tasks:
+  - name: "Get runner token"
+    shell: 'gitlab-rails runner -e production "puts Gitlab::CurrentSettings.current_application_settings.runners_registration_token"'
+    run_once: true
+    register: runner_token
+
+- hosts: bastion
+  become: true
+  tasks:
+  - name: "Install packages"
+    yum: name="{{item}}" state=present
+    loop:
+     - "unzip"
+     - "wget"
+
+  - name: Set fact
+    set_fact: runner_token=hostvars['app']['runner_token']
+
+  - name: Check that aws exists
+    stat:
+      path: /usr/bin/aws
+    register: aws_file
+
+  - name: Check that helm exists
+    stat:
+      path: /usr/bin/helm
+    register: helm_file
+
+  - name: Check that kubectl exists
+    stat:
+      path: /usr/bin/kubectl
+    register: kubectl_file
+
+  - name: "Install aws-cli"
+    shell: "{{item}}"
+    loop:
+      - 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
+      - 'unzip -u awscliv2.zip'
+      - './aws/install'
+      - 'ln -fs /usr/local/bin/aws /usr/bin/aws'
+    when: not aws_file.stat.exists
+
+  - name: "Install kubectl"
+    shell: "{{item}}"
+    loop:
+      - 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
+      - 'install -o root -g root -m 0755 kubectl /usr/bin/kubectl'
+    when: not kubectl_file.stat.exists
+
+  - name: "Update eks kubeconfig"
+    shell: "aws eks update-kubeconfig --name gitlab-eks"
+    become: false
+
+  - name: "Install Helm"
+    shell: "{{item}}"
+    loop:
+      - 'wget https://get.helm.sh/helm-canary-linux-amd64.tar.gz -O /tmp/helm.tar.gz'
+      - 'tar -zxvf /tmp/helm.tar.gz -C /tmp/'
+      - 'mv /tmp/linux-amd64/helm /usr/bin/helm'
+    when: not helm_file.stat.exists
+
+  - name: "Copy runner config"
+    template: src="values.yaml" dest="/tmp/values.yaml"
+
+  - name: "Configure helm and eks"
+    shell: "{{item}}"
+    become: false
+    loop:
+      - 'helm repo add gitlab https://charts.gitlab.io'
+      - 'kubectl create ns gitlab-runner'
+      - 'helm install --replace --namespace gitlab-runner gitlab-runner -f /tmp/values.yaml gitlab/gitlab-runner'

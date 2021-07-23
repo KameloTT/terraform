@@ -1,3 +1,4 @@
+variable "bastion_instance_ip" {}
 variable "app_instances_ip" {}
 variable "gitaly_instances_ip" {}
 variable "praefect_instances_ip" {}

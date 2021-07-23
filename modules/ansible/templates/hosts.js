@@ -1,3 +1,8 @@
+[bastion]
+%{ for bastion-host in bastion_instance ~}
+${bastion-host}
+%{ endfor ~}
+
 [app]
 %{ for app-host in app_instances ~}
 ${app-host}
