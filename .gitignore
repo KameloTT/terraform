@@ -1,3 +1,5 @@
 terraform.tfs*
 .terraform*
 tmp*
+kubeconfig*
+.*.swp

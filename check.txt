@@ -1,5 +1,0 @@
-Overall checking
-
-from app node:
-sudo gitlab-rake gitlab:check  
-sudo gitlab-ctl status  

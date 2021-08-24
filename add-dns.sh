@@ -1,13 +1,13 @@
 #!/bin/bash
 
 domainname=$1
-cat > gitlab-record.json <<EOF
+cat > pwx-record.json <<EOF
 {
             "Comment": "CREATE/DELETE/UPSERT a record ",
             "Changes": [{
             "Action": "UPSERT",
                         "ResourceRecordSet": {
-                                    "Name": "gitlab.$domainname.",
+                                    "Name": "pwx.$domainname.",
                                     "Type": "NS",
                                     "TTL": 300,
                                  "ResourceRecords": [
@@ -28,7 +28,7 @@ cat > gitlab-record.json <<EOF
 }
 EOF
 zoneid=`aws route53 list-hosted-zones-by-name |  jq --arg name "${domainname}." -r '.HostedZones | .[] | select(.Name=="\($name)") | .Id'`
-changeid=`aws route53 change-resource-record-sets --hosted-zone-id $zoneid --change-batch file://gitlab-record.json |grep '"Id"' |awk -F'"' {'print $4'}`
+changeid=`aws route53 change-resource-record-sets --hosted-zone-id $zoneid --change-batch file://pwx-record.json |grep '"Id"' |awk -F'"' {'print $4'}`
 while [ `aws route53  get-change --id $changeid |grep Status |awk -F'"' {'print $4'}` != 'INSYNC'  ]
 do
 sleep 1

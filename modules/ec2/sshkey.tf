@@ -1,4 +1,4 @@
-resource "aws_key_pair" "gitlab" {
-  key_name   = "gitlab"
-  public_key = file("gitlab.pub")
+resource "aws_key_pair" "pwx" {
+  key_name   = "pwx"
+  public_key = file("pwx.pub")
 }

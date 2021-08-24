@@ -1,0 +1,11 @@
+- hosts: localhost
+  tasks:
+    - name: Add aliasing
+      lineinfile:
+        path: ~/.bashrc
+        line: "{{item}}"
+        insertafter: alias.*
+      loop:
+        - "alias oc1='kubectl --kubeconfig=kubeconfig_primary-cluster'"
+        - "alias oc2='kubectl --kubeconfig=kubeconfig_secondary-cluster'"
+
