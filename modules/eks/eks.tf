@@ -32,7 +32,7 @@ module "cluster" {
 #  }
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = var.clustername
-  cluster_version = "1.19"
+  cluster_version = var.eks_version
   subnets         = var.private-subnets
   vpc_id          = var.vpc-id
   kubeconfig_name = var.clustername

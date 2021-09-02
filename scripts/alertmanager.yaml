@@ -1,0 +1,16 @@
+global:
+  # The smarthost and SMTP sender used for mail notifications.
+  smtp_smarthost: "localhost:25"
+  smtp_from: "avishnia@redhat.com"
+  smtp_auth_username: "avishnia"
+  smtp_auth_password: "noidea"
+route:
+  group_by: [Alertname]
+  # Send all notifications to me.
+  receiver: email-me
+receivers:
+  - name: email-me
+    email_configs:
+      - to: "avishnia@redhat.com"
+        from: "avishnia@redhat.com"
+        smarthost: "localhost:25"
