@@ -16,11 +16,22 @@ source = "./modules/ec2"
   bastion-public-subnet     = "${module.networking.public_subnet[0].id}"
 }
 
-module "eks" {
+module "eks-primary" {
 source = "./modules/eks"
   private-subnets           = ["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
   instance-type             = "t3.medium"
   vpc-id                    = module.networking.vpc_id
   vpc_security_group_ids    = ["${module.networking.security_group.id}"]
   key_name                  = module.ec2.sshkey
+  clustername               = "primary-cluster"
+}
+
+module "eks-secondary" {
+source = "./modules/eks"
+  private-subnets           = ["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
+  instance-type             = "t3.medium"
+  vpc-id                    = module.networking.vpc_id
+  vpc_security_group_ids    = ["${module.networking.security_group.id}"]
+  key_name                  = module.ec2.sshkey
+  clustername               = "secondary-cluster"
 }

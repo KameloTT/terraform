@@ -13,6 +13,7 @@ python3 -m pip install --user ansible
 rm -rf /tmp/get-pip.py /tmp/aws-iam-authenticator
 
 ansible-playbook ansible/aliases.yml
-. ~/.bashrc
+exec bash
 
 oc1 label node -l beta.kubernetes.io/os=linux  node-role.kubernetes.io/worker=
+oc2 label node -l beta.kubernetes.io/os=linux  node-role.kubernetes.io/worker=
