@@ -9,6 +9,10 @@ source = "./modules/networking"
   pname                = "pwx-dr"
 }
 
+module "s3" {
+source = "./modules/s3"
+}
+
 module "ec2" {
 source = "./modules/ec2"
   ami                       = "ami-059f1cc52e6c85908"
