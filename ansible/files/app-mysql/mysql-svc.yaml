@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: 'true'
+  labels:
+    app: ooo-mysql
+  name: mysql
+  namespace: pwx-test-app1
+spec:
+  clusterIP: None
+  ports:
+  - name: mysql
+    port: 3306
+    protocol: TCP
+    targetPort: 3306
+  - name: mysql-sync
+    port: 4444
+    protocol: TCP
+    targetPort: 4444
+  - name: mysql-sync2
+    port: 4567
+    protocol: TCP
+    targetPort: 4567
+  - name: mysql-sync3
+    port: 4568
+    protocol: TCP
+    targetPort: 4568
+  selector:
+    app: ooo-mysql
+  sessionAffinity: None
+  type: ClusterIP
