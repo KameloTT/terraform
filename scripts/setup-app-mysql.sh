@@ -8,7 +8,7 @@ oc1 apply -f ansible/files/app-mysql/
 
 while [[ `oc1 -n pwx-test-app1 get po  -l app=ooo-mysql |grep -v "STATUS" |grep -v "1/1"` ]];do echo 'App DB. Waiting while Database will be up and running';sleep 5;done
 echo "App DB. Application Test Database is up and running"
-sleep 5
+sleep 30
 echo "App DB. Status of Mysql cluster"
 oc1 -n pwx-test-app1 exec -it mysql-2 -- bash -c "mysql -u root -pglonti --execute=\"SHOW STATUS LIKE 'wsrep%';\" |grep wsrep_local_state_comment" |awk {'print $2'}
 
