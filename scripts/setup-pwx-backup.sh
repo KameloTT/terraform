@@ -1,6 +1,6 @@
 #!/bin/sh
 project='pwx-backup'
-region='us-east-1'
+region=`cat ~/.aws/credentials |grep ^region |awk -F'= ' {'print $2'}`
 
 eksctl utils associate-iam-oidc-provider --region=$region --cluster=primary-cluster --approve
 helm repo add portworx http://charts.portworx.io/ && helm repo update
