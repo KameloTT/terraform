@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: portworx
+  name: portworx-service-ext
+  namespace: kube-system
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: px-api
+    port: 9001
+    protocol: TCP
+    targetPort: 9001
+  - name: px-kvdb
+    port: 9019
+    protocol: TCP
+    targetPort: 9019
+  - name: px-sdk
+    port: 9020
+    protocol: TCP
+    targetPort: 9020
+  - name: px-rest-gateway
+    port: 9021
+    protocol: TCP
+    targetPort: 9021
+  selector:
+    name: portworx
+  sessionAffinity: None
+  type: LoadBalancer
