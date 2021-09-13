@@ -2,6 +2,7 @@
 
 ./scripts/prepare-bastion.sh
 
+terraform -install-autocomplete
 terraform init
 terraform apply -auto-approve
 
@@ -73,7 +74,6 @@ users:
 
 echo '####Primary admin kubeconfig = /tmp/admin-primary.kubeconfig ####'
 echo '####Secondary admin kubeconfig = /tmp/admin-primary.kubeconfig ####'
-#./scripts/deploy_app1.sh
 ./scripts/setup-pwx-cluster.sh
 ./scripts/setup-app-mysql.sh
 ./scripts/setup-pwx-backup.sh
