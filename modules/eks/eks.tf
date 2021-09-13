@@ -38,6 +38,7 @@ module "cluster" {
   kubeconfig_name = var.clustername
   write_kubeconfig   = true
   manage_aws_auth = true
+  wait_for_cluster_timeout = 900
   worker_groups = [
     {
 #      name = "primary"
@@ -52,6 +53,7 @@ module "cluster" {
 #      additional_ebs_volumes = [local.ebs_block_device]
     }
   ]
+  }
 }
 
 
