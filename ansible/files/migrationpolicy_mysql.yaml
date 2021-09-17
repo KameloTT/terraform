@@ -1,0 +1,16 @@
+apiVersion: stork.libopenstorage.org/v1alpha1
+kind: SchedulePolicy
+metadata:
+  name: policy-mysql
+  namespace: pwx-test-app1
+policy:
+  interval:
+    intervalMinutes: 1
+  daily:
+    time: "10:14PM"
+  weekly:
+    day: "Thursday"
+    time: "10:13PM"
+  monthly:
+    date: 14
+    time: "8:05PM"
