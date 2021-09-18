@@ -26,6 +26,7 @@ oc1 exec $pod -n kube-system -- /opt/pwx/bin/pxctl credentials create --provider
 
 ansible-playbook ansible/cluster-pair-mysql.yaml
 
+oc1 apply -f /tmp/cluster_pair_mysql.yaml
 oc1 apply -f ansible/files/migrationpolicy_mysql.yaml
 
 oc1 apply -f ansible/files/migration_schedule_mysql.yaml
