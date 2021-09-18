@@ -53,7 +53,6 @@ module "cluster" {
 #      additional_ebs_volumes = [local.ebs_block_device]
     }
   ]
-  }
 }
 
 
