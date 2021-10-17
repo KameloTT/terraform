@@ -1,7 +1,7 @@
 #!/bin/sh
 
-key=`cat ~/.aws/credentials |grep ^aws_access_key_id |awk -F'= ' {'print $2'}`
-secret=`cat ~/.aws/credentials |grep ^aws_secret_access_key |awk -F'= ' {'print $2'}`
+key=`cat ~/.aws/credentials |grep ^aws_access_key_id |awk -F'= ' {'print $2'} |sed 's/+/%2B/g'`
+secret=`cat ~/.aws/credentials |grep ^aws_secret_access_key |awk -F'= ' {'print $2'} |sed 's/+/%2B/g'`
 project='kube-system'
 alias oc1='kubectl --kubeconfig=kubeconfig_primary-cluster'
 alias oc2='kubectl --kubeconfig=kubeconfig_secondary-cluster'
