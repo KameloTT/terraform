@@ -1,0 +1,44 @@
+- hosts: localhost
+  tasks:
+    - name: "Get cert"
+      shell: |
+              cat ~/terraform/kubeconfig_primary-cluster |grep "    certificate-authority-data:" |awk '{print $2}'
+      register: cert
+
+    - name: "Get server"
+      shell: |
+              cat ~/terraform/kubeconfig_primary-cluster |grep "    server:" |awk '{print $2}'
+      register: server
+
+
+    - name: "Get external ip"
+      shell: |
+              kubectl --kubeconfig=../kubeconfig_primary-cluster -n kube-system get svc/portworx-service-ext -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+      register: ext_ip
+
+    - name: "Get Pod"
+      shell: |
+              kubectl --kubeconfig=../kubeconfig_primary-cluster get pods -l name=portworx -n kube-system -o jsonpath='{.items[0].metadata.name}'
+      register: pod
+
+    - name: "Get pwx cluster token"
+      shell: |
+              kubectl --kubeconfig=../kubeconfig_primary-cluster exec {{pod.stdout}} -n kube-system -- /opt/pwx/bin/pxctl cluster token show 2>/dev/null |awk {'print $3'}
+      register: token
+
+    - name: "Get pwx cluster token"
+      shell: |
+              cat /tmp/admin-primary.kubeconfig |grep "  token: " |awk {'print $2'}
+      register: admin_token
+
+    - set_fact:
+        cert_first_cluster: "{{cert.stdout}}"
+        server_first_cluster: "{{server.stdout}}"
+        first_pwx_external_svc: "{{ext_ip.stdout}}"
+        first_pwx_cluster_token: "{{token.stdout}}"
+        k8s_token: "{{admin_token.stdout}}"
+
+    - name: "Create clusterpair"
+      template:
+        src: templates/cluster_pair_mysql_failback.yaml
+        dest: /tmp/cluster_pair_mysql_failback.yaml

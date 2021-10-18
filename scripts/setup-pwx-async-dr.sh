@@ -25,8 +25,11 @@ oc1 exec $pod -n kube-system -- /opt/pwx/bin/pxctl license activate 5c73-e11f-24
 oc1 exec $pod -n kube-system -- /opt/pwx/bin/pxctl credentials create --provider s3 --s3-access-key $key --s3-secret-key $secret --s3-region $region  --s3-endpoint s3.amazonaws.com --s3-storage-class STANDARD clusterPair_$uuid
 
 ansible-playbook ansible/cluster-pair-mysql.yaml
+ansible-playbook ansible/cluster-pair-mysql-failback.yaml
 
 oc1 apply -f /tmp/cluster_pair_mysql.yaml
+oc2 apply -f /tmp/cluster_pair_mysql_failback.yaml
+
 oc1 apply -f ansible/files/migrationpolicy_mysql.yaml
 
 oc1 apply -f ansible/files/migration_schedule_mysql.yaml

@@ -1,0 +1,29 @@
+apiVersion: stork.libopenstorage.org/v1alpha1
+kind: ClusterPair
+metadata:
+  creationTimestamp: null
+  name: first-cluster
+  namespace: pwx-test-app1
+spec:
+  config:
+    clusters:
+      first-cluster:
+        LocationOfOrigin: /tmp/admin-first.kubeconfig
+        certificate-authority-data: {{cert_first_cluster}} 
+        server: {{server_first_cluster}} 
+    contexts:
+      first-cluster:
+        LocationOfOrigin: /tmp/admin-first.kubeconfig
+        cluster: first-cluster
+        user: k8s-admin
+    current-context: first-cluster
+    preferences: {}
+    users:
+      k8s-admin:
+        LocationOfOrigin: /tmp/admin-first.kubeconfig
+        token: '{{k8s_token}}'
+  options:
+    ip:  '{{first_pwx_external_svc}}'
+    port:  '9001'
+    token: '{{first_pwx_cluster_token}}'
+    mode: DisasterRecovery
