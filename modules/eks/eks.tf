@@ -43,9 +43,9 @@ module "cluster" {
     {
 #      name = "primary"
       instance_type = var.instance-type
-      asg_max_size  = 3
-      asg_desired_capacity = 3
-      asg_min_size = 3
+      asg_max_size  = 5
+      asg_desired_capacity = 5
+      asg_min_size = 5
       key_name = var.key_name
       asg_recreate_on_change = true
       additional_security_group_ids = var.vpc_security_group_ids
