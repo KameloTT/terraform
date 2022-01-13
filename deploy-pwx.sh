@@ -3,7 +3,7 @@
 ./scripts/prepare-bastion.sh
 
 terraform -install-autocomplete
-terraform init
+terraform init -upgrade
 terraform apply -auto-approve
 
 alias oc1='kubectl --kubeconfig=kubeconfig_primary-cluster'
