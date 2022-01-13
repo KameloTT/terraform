@@ -30,6 +30,7 @@ module "cluster" {
 #  providers = {
 #    kubernetes = kubernetes.primary
 #  }
+  version = "17.22.0"
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = var.clustername
   cluster_version = var.eks_version
