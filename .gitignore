@@ -2,3 +2,4 @@ terraform.tfs*
 .terraform*
 .README*
 tmp*
+creds

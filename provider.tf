@@ -1,17 +1,5 @@
-
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.0"
-    }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 1.13"
-    }
-  }
-}
-
-provider "aws" {
-  region  = "${var.region}"
+provider "google" {
+  credentials = file("./creds/gcp.json")
+  project     = var.project_id
+  region      = var.region
 }
