@@ -30,6 +30,7 @@ variable "gcp_service_list" {
     "compute.googleapis.com",
     "container.googleapis.com",
     "servicenetworking.googleapis.com",
-    "sqladmin.googleapis.com"
+    "sqladmin.googleapis.com",
+    "redis.googleapis.com"
   ]
 }

@@ -22,7 +22,6 @@ resource "random_id" "pg_name_suffix" {
 
 resource "google_sql_database_instance" "gitlab" {
   provider = google-beta
-
   name             = "pg-instance-${random_id.pg_name_suffix.hex}"
   region           = var.region
   database_version = "POSTGRES_13"
@@ -44,4 +43,9 @@ resource "google_sql_user" "users" {
   name     = var.pg_user
   instance = google_sql_database_instance.gitlab.name
   password = var.pg_password
+}
+
+resource "google_sql_database" "database" {
+  name      = "gitlabhq_production"
+  instance  = "${google_sql_database_instance.gitlab.name}"
 }

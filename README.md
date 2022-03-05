@@ -6,3 +6,4 @@
 * Kubernetes Engine API
 * Service Networking API
 * Cloud SQL Admin API
+* Google Cloud Memorystore for Redis API
