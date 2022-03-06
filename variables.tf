@@ -23,6 +23,11 @@ variable "pg_password" {
   default = "password"
 }
 
+variable "redis_password" {
+  description = "redis auth key"
+  default = "febb5c94-4df9-4d80-bc33-4cbddc979c78"
+}
+
 variable "gcp_service_list" {
   description = "GCP services for enabling"
   default = [
