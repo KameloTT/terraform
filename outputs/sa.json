@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "project-gitlab-343015",
+  "private_key_id": "c9a4588015d00b720718bd2a0a3f1ee12ef5e76e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDIsoqxm96TLOhs\nVdmFZLbg840E6ON96AADLIrGM3nGB5eeleudvnAwuLSaFVK8RUi5cgr9jPG/Yk2S\nq6+bMY2yIIbE6hxyqMcidPGBVMd92AibZoL6TBHocXkvmStLFyWI/drxvMd+foEb\nc6FdQTR1b9I5mgCp0NMMYVZdj9Saaa0Lx1GXKULgBR1bGaJJ0HShk8+el1A2Vd6p\nNSQrREBzyHeqqBqXGrUDNxKLrQVgqTg5uamztohnWJ62FoAmIc+NbKeBTdavx0wx\nplGBr8M+BgcIi0V/vKDAS61vfXsr678t6lOh5ea7MjjA8WdexgqGFVboewr4ExTm\nkD6ftyZbAgMBAAECggEAIM+A5CNu16cbrPu7WYGgckCZjogXtPGU8EU7v3ESmJY3\nf+TTmxDTXOu9aYP7PYNNgzUf6IQT0O2HGrzjCHSpTR812S3K49CFlF5Y+INTL9bT\nJWYKG1W3XHBnVv7r+H/lZ4gqNKNfsTreQY4oVHYWAkL7M+aM8uDht/WWfdTx9XeZ\n/iKcbL68Q766I0RYjbUbjld3CgeYgXYpyeHYuKCxjI1XrsPSbYQsYPcVMhS4ruk+\nN4oZlKIVQtdkwwRIkmzOvP+6CsAtFMgKoHDT6SPhq59Sv6bz3rnVuZHwVp8/7MLx\nQ8upO2WUmg7g+S50gos5CfJzrKP/AS1IpeVBz6XAbQKBgQDz54pISS6ISZQ6J1CI\nikeJkXA6Oe51UVIY3/0yREf2aOZ/gInZkqOwhVngIGE9evam5iPruHApSANnILME\nvjfzvCCrP1mmpGbbO2ZpxNsAaHVlbuU0UriO4mrOZKhh2/X0JeURW8+c/o7JAHFM\nv/CnLDQrVTPI/B8KAjakUUPVfQKBgQDSpnjUIgHjhJKev0z4O25l4qQfPU6+VRh3\naPGq2vQAe/Mlsv0StyuyCyHDhWLFqf07bBmjzvnqIhfGuGVHqMqfMTLXIq8STUnL\n2oSpoIGXjAI4c/i+DcANyYNerS3qC+sWj6+p08bPW8c5csWyjk45WJfw/3jy8KYR\n6ZS8Bs3StwKBgQCRaGWBaNer+qm67btOW5oAgst0exsVqBCYsdjCQgDg/3MDan9E\nTe72itmlC8jNHWS05Zleq4t6oOsebVksp7a1wV98mHz7IyIK62PIBMtHd/8dJLrS\nscpDrOpd95aHGNqN3pWs/p5Mi1pWrMPfLMLs9yZ2+wmvddePYPhwh944BQKBgQCL\npe8eevkTkxT8hsgJHKVAiDLTvvoP9iwFJZ5o7USreYClMnbRzHr8SqL0kt37Ool1\ntmF9Fj7Z+AYZKK+EBSNmy9/vfb/gezp8GX6vUYf4JspmEIQLwuPagAhGYLq6mXId\nf94t0QbQ+wAlVrA3gl3baJ86FrNhIyaFY3vF9yDGGwKBgCnGJBwXyruurrnLAkGQ\nQxxGZuujTYTQb9s1H3T26uAGPcr1FuL2Kb95pZWJbCNVIHzzai6TmUOSxFRR91ST\ne6RsDAd1ltAiX3rMcL1VtJ73FaCBnRSBE22JMR4cLhs5a+aVPS+0USE9oegCbtgG\nmtFcjq/niwq6faWS8Uz7NSqQ\n-----END PRIVATE KEY-----\n",
+  "client_email": "gitlab-storage-id@project-gitlab-343015.iam.gserviceaccount.com",
+  "client_id": "105559608303482728597",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gitlab-storage-id%40project-gitlab-343015.iam.gserviceaccount.com"
+}

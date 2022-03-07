@@ -8,6 +8,16 @@ variable "region" {
   default = "us-central1"
 }
 
+variable "root_domain" {
+  description = "Global Domain"
+  default = "example.com"
+}
+
+variable "self_sign_email" {
+  description = "Email for lets encrypt"
+  default = "avishnia@redhat.com"
+}
+
 variable "pg_flavor" {
   description = "PG instance type"
   default = "db-f1-micro"

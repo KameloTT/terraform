@@ -1,0 +1,3 @@
+gcs:
+  bucket: gitlab-registry-storage
+  keyfile: /etc/docker/registry/storage/keyfile
