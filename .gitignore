@@ -3,3 +3,4 @@ terraform.tfs*
 .README*
 tmp*
 creds
+outputs
