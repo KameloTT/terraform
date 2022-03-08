@@ -8,13 +8,9 @@ variable "gke_password" {
   description = "gke password"
 }
 
-variable "gke_num_nodes" {
-  default     = 1
-  description = "number of gke nodes"
-}
-
 # GKE cluster
 resource "google_container_cluster" "primary" {
+  provider = google-beta
   name     = "${var.project_id}-gke"
   location = var.region
   
@@ -36,10 +32,18 @@ resource "google_container_cluster" "primary" {
       node_locations,ip_allocation_policy
     ]
   }
+
+  dns_config {
+    cluster_dns = "CLOUD_DNS"
+    cluster_dns_scope = "VPC_SCOPE"
+    cluster_dns_domain = var.root_domain
+  }
+
 }
 
 # Separately Managed Node Pool
 resource "google_container_node_pool" "primary_nodes" {
+  provider = google-beta
   name       = "${google_container_cluster.primary.name}-node-pool"
   location   = var.region
   cluster    = google_container_cluster.primary.name
