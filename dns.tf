@@ -2,6 +2,11 @@ resource "google_dns_managed_zone" "gitlab" {
   name     = "gitlab-zone"
   dns_name = "${var.root_domain}."
   visibility = "private"
+  private_visibility_config {
+    networks {
+      network_url = google_compute_network.vpc.id
+    }
+  }
 }
 
 resource "google_dns_record_set" "gitlab" {

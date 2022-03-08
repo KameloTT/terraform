@@ -33,11 +33,11 @@ resource "google_container_cluster" "primary" {
     ]
   }
 
-  dns_config {
-    cluster_dns = "CLOUD_DNS"
-    cluster_dns_scope = "VPC_SCOPE"
-    cluster_dns_domain = var.root_domain
-  }
+#  dns_config {
+#    cluster_dns = "CLOUD_DNS"
+#    cluster_dns_scope = "VPC_SCOPE"
+#    cluster_dns_domain = var.root_domain
+#  }
 
 }
 
