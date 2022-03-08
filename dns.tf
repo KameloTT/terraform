@@ -1,6 +1,6 @@
 resource "google_dns_managed_zone" "gitlab" {
   name     = "gitlab-zone"
-  dns_name = "${root_domain}."
+  dns_name = "${var.root_domain}."
   visibility = "private"
 }
 

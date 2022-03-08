@@ -49,30 +49,30 @@ resource "local_file" "gitlab_helm" {
     registry.storage.key=config
     registry.storage.extraKey=gcs.json
 
-    global.appConfig.lfs.bucket=${google_storage_bucket.gitlab-lfs-storage}
+    global.appConfig.lfs.bucket=${google_storage_bucket.gitlab-lfs-storage.name}
     global.appConfig.lfs.connection.secret=gitlab-rails-storage
     global.appConfig.lfs.connection.key=connection
 
-    global.appConfig.artifacts.bucket=${google_storage_bucket.gitlab-artifacts-storage}
+    global.appConfig.artifacts.bucket=${google_storage_bucket.gitlab-artifacts-storage.name}
     global.appConfig.artifacts.connection.secret=gitlab-rails-storage
     global.appConfig.artifacts.connection.key=connection
 
-    global.appConfig.uploads.bucket=${google_storage_bucket.gitlab-uploads-storage}
+    global.appConfig.uploads.bucket=${google_storage_bucket.gitlab-uploads-storage.name}
     global.appConfig.uploads.connection.secret=gitlab-rails-storage
     global.appConfig.uploads.connection.key=connection
 
-    global.appConfig.packages.bucket=${google_storage_bucket.gitlab-packages-storage}
+    global.appConfig.packages.bucket=${google_storage_bucket.gitlab-packages-storage.name}
     global.appConfig.packages.connection.secret=gitlab-rails-storage
     global.appConfig.packages.connection.key=connection
 
-    global.appConfig.externalDiffs.bucket=${google_storage_bucket.gitlab-externaldiffs-storage}
+    global.appConfig.externalDiffs.bucket=${google_storage_bucket.gitlab-externaldiffs-storage.name}
     global.appConfig.externalDiffs.connection.secret=gitlab-rails-storage
     global.appConfig.externalDiffs.connection.key=connection
 
     global.appConfig.ldap.preventSignin: true
 
-    global.appConfig.backups.bucket=${google_storage_bucket.gitlab-backup-storage}
-    global.appConfig.backups.tmpBucket=${google_storage_bucket.gitlab-restore-storage}
+    global.appConfig.backups.bucket=${google_storage_bucket.gitlab-backup-storage.name}
+    global.appConfig.backups.tmpBucket=${google_storage_bucket.gitlab-restore-storage.name}
     gitlab.toolbox.backups.objectStorage.backend=gcs
     gitlab.toolbox.backups.objectStorage.config.gcpProject=${var.project_id}
     gitlab.toolbox.backups.objectStorage.config.secret=backup-storage-config

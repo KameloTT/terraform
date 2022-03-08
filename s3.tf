@@ -84,14 +84,14 @@ resource "google_storage_bucket_iam_binding" "packages-binding" {
 }
 
 #Diffs Storage
-resource "google_storage_bucket" "gitlab-externaldiff-storage" {
-  name          = "gitlab-externaldiff-bucket-vish"
+resource "google_storage_bucket" "gitlab-externaldiffs-storage" {
+  name          = "gitlab-externaldiffs-bucket-vish"
   location      = "us-central1"
   force_destroy = true
 }
 
-resource "google_storage_bucket_iam_binding" "externaldiff-binding" {
-  bucket = google_storage_bucket.gitlab-externaldiff-storage.name
+resource "google_storage_bucket_iam_binding" "externaldiffs-binding" {
+  bucket = google_storage_bucket.gitlab-externaldiffs-storage.name
   role = "roles/storage.admin"
   members = [
     "serviceAccount:${google_service_account.sa_gitlab_storage.email}",
