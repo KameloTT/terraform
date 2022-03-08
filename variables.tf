@@ -9,8 +9,13 @@ variable "region" {
 }
 
 variable "gke_num_nodes" {
-  default     = 2
+  default     = 1
   description = "number of gke nodes"
+}
+
+variable "gke_flavor" {
+  default     = "e2-highcpu-4"
+  description = "GKE flavor for nodes(4vCPU, 4GB RAM)"
 }
 
 variable "root_domain" {
