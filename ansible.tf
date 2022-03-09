@@ -35,7 +35,7 @@ resource "local_file" "gitlab_helm" {
     --set postgresql.install=false
     --set global.psql.host=${google_dns_record_set.postgres.name}
     --set global.psql.password.secret=gitlab-postgresql-secret
-    --set global.psql.password.key=postgres-password
+    --set global.psql.password.key=postgresql-password
 
     --set redis.install=false
     --set global.redis.host=${google_dns_record_set.postgres.name}
