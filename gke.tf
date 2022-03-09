@@ -1,3 +1,4 @@
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network_peering_routes_config#example-usage---network-peering-routes-config-gke
 variable "gke_username" {
   default     = ""
   description = "gke username"

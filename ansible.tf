@@ -34,6 +34,8 @@ resource "local_file" "gitlab_helm" {
 
     --set postgresql.install=false
     --set global.psql.host=postgres.${var.root_domain}
+    --set global.psql.username=gitlab
+    --set global.psql.database=gitlabhq_production
     --set global.psql.password.secret=gitlab-postgresql-secret
     --set global.psql.password.key=postgresql-password
 
@@ -80,6 +82,9 @@ resource "local_file" "gitlab_helm" {
     --set gitlab.toolbox.persistence.enabled=true
     --set gitlab.toolbox.backups.cron.persistence.enabled=true
 
+    --set gitlab-runner.gitlabUrl=http://gitlab.${var.root_domain}
+
+    --set gitlab.toolbox.migrations.enabled=true
   EOT
   filename        = "./outputs/gitlab-helm.cfg"
   file_permission = "0666"

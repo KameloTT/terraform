@@ -8,13 +8,13 @@ resource "google_compute_global_address" "pg-address" {
   network       = google_compute_network.vpc.id
 }
 
-resource "google_service_networking_connection" "private_vpc_connection" {
-  provider = google-beta
-
-  network                 = google_compute_network.vpc.id
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = [google_compute_global_address.pg-address.name]
-}
+#resource "google_service_networking_connection" "private_vpc_connection" {
+#  provider = google-beta
+#
+#  network                 = google_compute_network.vpc.id
+#  service                 = "servicenetworking.googleapis.com"
+#  reserved_peering_ranges = [google_compute_global_address.pg-address.name]
+#}
 
 resource "random_id" "pg_name_suffix" {
   byte_length = 4
@@ -35,6 +35,10 @@ resource "google_sql_database_instance" "gitlab" {
     ip_configuration {
       ipv4_enabled    = false
       private_network = google_compute_network.vpc.id
+      authorized_networks {
+        name = "Gitlab GKE Cluster"
+        value = google_container_cluster.primary.endpoint 
+      }
     }
   }
 }

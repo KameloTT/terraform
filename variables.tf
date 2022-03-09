@@ -14,8 +14,8 @@ variable "gke_num_nodes" {
 }
 
 variable "gke_flavor" {
-  default     = "e2-highcpu-4"
-  description = "GKE flavor for nodes(4vCPU, 4GB RAM)"
+  default     = "e2-standard-2"
+  description = "GKE flavor for nodes(2vCPU, 8GB RAM)"
 }
 
 variable "root_domain" {
