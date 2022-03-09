@@ -33,12 +33,12 @@ resource "local_file" "gitlab_helm" {
     --set certmanager-issuer.email=${var.self_sign_email}
 
     --set postgresql.install=false
-    --set global.psql.host=${google_dns_record_set.postgres.name}
+    --set global.psql.host=postgres.${var.root_domain}
     --set global.psql.password.secret=gitlab-postgresql-secret
     --set global.psql.password.key=postgresql-password
 
     --set redis.install=false
-    --set global.redis.host=${google_dns_record_set.postgres.name}
+    --set global.redis.host=redis.${var.root_domain}
     --set global.redis.password.secret=gitlab-redis-secret
     --set global.redis.password.key=redis-password
 
