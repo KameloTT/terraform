@@ -33,14 +33,14 @@ source = "./modules/eks"
   eks_version               = "1.20"
 }
 
-module "eks-secondary" {
-source = "./modules/eks"
+#module "eks-secondary" {
+#source = "./modules/eks"
 #  private-subnets           = ["${module.networking.private_subnet[0].id}","${module.networking.private_subnet[1].id}","${module.networking.private_subnet[2].id}"]
-  private-subnets           = module.networking.private_subnet
-  instance-type             = "t3.medium"
-  vpc-id                    = module.networking.vpc_id
-  vpc_security_group_ids    = ["${module.networking.security_group.id}"]
-  key_name                  = module.ec2.sshkey
-  clustername               = "secondary-cluster"
-  eks_version               = "1.20"
-}
+#  private-subnets           = module.networking.private_subnet
+#  instance-type             = "t3.medium"
+#  vpc-id                    = module.networking.vpc_id
+#  vpc_security_group_ids    = ["${module.networking.security_group.id}"]
+#  key_name                  = module.ec2.sshkey
+#  clustername               = "secondary-cluster"
+#  eks_version               = "1.20"
+#}
